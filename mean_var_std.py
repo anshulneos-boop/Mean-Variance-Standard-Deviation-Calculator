@@ -1,43 +1,20 @@
 import numpy as np
 
-def calculate(list):
-  
-  try:
-      #converting list into 3X3 matrix	
-      num_array = np.array(list).reshape(3,3)
-        
-      #calculating mean across Row, column and mean of matrix
-      mean_row = num_array.mean(axis = 0).tolist() 
-      mean_col = num_array.mean(axis = 1).tolist()
-      mean_val = num_array.mean()
-      #calculating variance across rows, column and variance of matrix
-      vari_row = num_array.var(axis = 0).tolist()
-      vari_col = num_array.var(axis = 1).tolist()
-      variance = num_array.var()
-      #standard deviation calculating standard deviation across Row, column and standard deviation of matrix
-      sd_row = num_array.std(axis = 0).tolist() 
-      sd_col = num_array.std(axis = 1).tolist()
-      sd =  num_array.std()
-      #calculating maximum across Row, column and maximun of matrix
-      max_row = num_array.max(axis = 0).tolist() 
-      max_col = num_array.max(axis = 1).tolist() 
-      maximum = num_array.max()
-      #calculating minimum across Row, column and minimum of matrix
-      min_row = num_array.min(axis=0).tolist() 
-      min_col = num_array.min(axis=1).tolist() 
-      minimum = num_array.min()
-      #calculating sum across Row, column and sum of matrix
-      sum_row = num_array.sum(axis=0).tolist()
-      sum_col = num_array.sum(axis=1).tolist()
-      sum_val = num_array.sum()
-      #converting the result into a dictionary value  
-      calulation = {'mean': [mean_row, mean_col, mean_val],
-             'variance': [vari_row, vari_col, variance],
-             'standard deviation': [sd_row, sd_col, sd],
-             'max' : [max_row, max_col, maximum],
-             'min' : [min_row, min_col, minimum],
-             'sum' : [sum_row, sum_col, sum_val]
-             }
-      return calulation
-  except ValueError:
-    print('List must contain nine numbers.')
+def calculate(list_input):
+    if len(list_input) != 9:
+        raise ValueError("List must contain nine numbers.")
+
+    # Convert list into 3x3 numpy array
+    arr = np.array(list_input).reshape(3, 3)
+
+    # Dictionary of calculations
+    calculations = {
+        'mean': [arr.mean(axis=0).tolist(), arr.mean(axis=1).tolist(), arr.mean().item()],
+        'variance': [arr.var(axis=0).tolist(), arr.var(axis=1).tolist(), arr.var().item()],
+        'standard deviation': [arr.std(axis=0).tolist(), arr.std(axis=1).tolist(), arr.std().item()],
+        'max': [arr.max(axis=0).tolist(), arr.max(axis=1).tolist(), arr.max().item()],
+        'min': [arr.min(axis=0).tolist(), arr.min(axis=1).tolist(), arr.min().item()],
+        'sum': [arr.sum(axis=0).tolist(), arr.sum(axis=1).tolist(), arr.sum().item()]
+    }
+
+    return calculations
